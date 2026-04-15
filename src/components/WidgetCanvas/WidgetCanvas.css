@@ -12,6 +12,7 @@
 
 .widget-canvas__row--mini {
   align-items: flex-start;
+  flex-wrap: wrap;
 }
 
 /* ── Widget wrapper — position:relative for absolute drop halves ── */
@@ -19,6 +20,21 @@
   flex: 1 1 0;
   min-width: 0;
   position: relative;
+}
+
+.widget-canvas__row--mini .widget-canvas__widget-wrapper {
+  min-width: 182px;
+}
+
+/* ── Responsive: regular rows wrap below 1421px ── */
+@media (max-width: 1420px) {
+  .widget-canvas__row:not(.widget-canvas__row--mini) {
+    flex-wrap: wrap;
+  }
+
+  .widget-canvas__row:not(.widget-canvas__row--mini) .widget-canvas__widget-wrapper {
+    min-width: 384px;
+  }
 }
 
 /* ── Widget ── */
