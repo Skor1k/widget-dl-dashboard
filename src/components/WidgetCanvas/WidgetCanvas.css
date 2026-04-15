@@ -80,6 +80,8 @@
   height: 16px;
   position: relative;
   flex-shrink: 0;
+  overflow: visible;
+  z-index: 10;
 }
 
 /* 4px horizontal line, appears on over */
@@ -98,6 +100,30 @@
 
 .widget-canvas__between-zone--over::after {
   height: 4px;
+}
+
+/* ── Add row line + button ── */
+.widget-canvas__add-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 2px;
+  background: var(--dc-color-purple-100);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.widget-canvas__add-btn-wrap {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: auto;
+}
+
+.widget-canvas__add-btn {
+  white-space: nowrap;
+  background: #f0f2f5 !important;
 }
 
 /* ── Drag overlay ── */

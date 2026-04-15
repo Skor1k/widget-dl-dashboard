@@ -39,7 +39,6 @@ export const GraphStub: React.FC = () => {
             <path
               d={STUB_LINE_PATH}
               fill="none"
-              stroke="rgba(145,158,187,0.5)"
               strokeWidth="1"
               strokeLinecap="round"
               strokeLinejoin="round"

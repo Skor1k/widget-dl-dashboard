@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 import {
   DndContext,
   DragEndEvent,
@@ -10,6 +10,8 @@ import {
   closestCenter,
 } from '@dnd-kit/core';
 import { useDraggable, useDroppable } from '@dnd-kit/core';
+import { Button } from '@direct-frontend/components';
+import { IconGridAdd } from '@direct-frontend/components/icons/colorless/Layout/GridAdd';
 import './WidgetCanvas.css';
 
 export interface WidgetRow {
@@ -23,6 +25,7 @@ export interface WidgetCanvasProps {
   widgetMap: Record<string, ReactNode>;
   widgetTypes: Record<string, 'regular' | 'mini'>;
   onChange: (rows: WidgetRow[]) => void;
+  onAdd?: () => void;
 }
 
 // ─── DraggableWidget ───────────────────────────────────────────────────────
@@ -80,18 +83,79 @@ function WidgetDropHalf({
 }
 
 // ─── BetweenRowsZone ───────────────────────────────────────────────────────
-function BetweenRowsZone({ index, active }: { index: number; active: boolean }) {
+function BetweenRowsZone({
+  index,
+  active,
+  onAdd,
+}: {
+  index: number;
+  active: boolean;
+  onAdd?: () => void;
+}) {
   const id = `new-row:${index}`;
   const { setNodeRef, isOver } = useDroppable({ id });
+  const [isHovered, setIsHovered] = useState(false);
+  const [buttonX, setButtonX] = useState(0);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
+  const mergedRef = useCallback(
+    (node: HTMLDivElement | null) => {
+      setNodeRef(node);
+      containerRef.current = node;
+    },
+    [setNodeRef]
+  );
+
+  // Глобальный трекинг — кнопка перекрывает зону, поэтому onMouseMove на div не работает
+  useEffect(() => {
+    if (!isHovered) return;
+    const handleMove = (e: MouseEvent) => {
+      if (!containerRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      setButtonX(Math.max(64, Math.min(x, rect.width - 64)));
+    };
+    document.addEventListener('mousemove', handleMove);
+    return () => document.removeEventListener('mousemove', handleMove);
+  }, [isHovered]);
+
+  const showAdd = isHovered && !active;
+
   return (
     <div
-      ref={setNodeRef}
+      ref={mergedRef}
       className={[
         'widget-canvas__between-zone',
         active ? 'widget-canvas__between-zone--active' : '',
         isOver ? 'widget-canvas__between-zone--over' : '',
+        showAdd ? 'widget-canvas__between-zone--hovering' : '',
       ].join(' ')}
-    />
+      onMouseEnter={(e) => {
+        if (containerRef.current) {
+          const rect = containerRef.current.getBoundingClientRect();
+          setButtonX(Math.max(64, Math.min(e.clientX - rect.left, rect.width - 64)));
+        }
+        setIsHovered(true);
+      }}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {showAdd && (
+        <>
+          <div className="widget-canvas__add-line" />
+          <div className="widget-canvas__add-btn-wrap" style={{ left: buttonX }}>
+            <Button
+              color="contour"
+              size="2xs"
+              iconLeft={IconGridAdd}
+              className="widget-canvas__add-btn"
+              onClick={onAdd}
+            >
+              Добавить
+            </Button>
+          </div>
+        </>
+      )}
+    </div>
   );
 }
 
@@ -143,7 +207,7 @@ function RowComponent({
 }
 
 // ─── WidgetCanvas ──────────────────────────────────────────────────────────
-export function WidgetCanvas({ rows, widgetMap, widgetTypes, onChange }: WidgetCanvasProps) {
+export function WidgetCanvas({ rows, widgetMap, widgetTypes, onChange, onAdd }: WidgetCanvasProps) {
   const [draggingId, setDraggingId] = useState<string | null>(null);
   const [draggingSourceRowId, setDraggingSourceRowId] = useState<string | null>(null);
 
@@ -213,7 +277,7 @@ export function WidgetCanvas({ rows, widgetMap, widgetTypes, onChange }: WidgetC
       onDragEnd={handleDragEnd}
     >
       <div className="widget-canvas">
-        <BetweenRowsZone index={0} active={isDragging} />
+        <BetweenRowsZone index={0} active={isDragging} onAdd={onAdd} />
 
         {rows.map((row, rowIndex) => (
           <React.Fragment key={row.id}>
@@ -224,7 +288,7 @@ export function WidgetCanvas({ rows, widgetMap, widgetTypes, onChange }: WidgetC
               draggingSourceRowId={draggingSourceRowId}
               draggingType={draggingType}
             />
-            <BetweenRowsZone index={rowIndex + 1} active={isDragging} />
+            <BetweenRowsZone index={rowIndex + 1} active={isDragging} onAdd={onAdd} />
           </React.Fragment>
         ))}
       </div>

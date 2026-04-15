@@ -147,7 +147,17 @@ export const DashboardPage: React.FC = () => {
           config.chartType === 'line' ? (
             <GraphStub />
           ) : (
-            <MetricWidget value="0" delta="+0%" deltaPositive />
+            (() => {
+              const isPositive = Math.random() > 0.5;
+              return (
+                <MetricWidget
+                  value={`${(Math.random() * 900 + 100).toFixed(1).replace('.', ',')} %`}
+                  delta={`${isPositive ? '+' : '−'}${(Math.random() * 30 + 1).toFixed(1)} %`}
+                  deltaPositive={isPositive}
+                  sparklineColor={`hsl(${(widgetCounter * 47) % 360}, 60%, 50%)`}
+                />
+              );
+            })()
           )
         }
       />
@@ -198,7 +208,7 @@ export const DashboardPage: React.FC = () => {
           </Button>
         </div>
 
-      <WidgetCanvas rows={rows} widgetMap={widgetMapWithDelete} widgetTypes={widgetTypes} onChange={setRows} />
+      <WidgetCanvas rows={rows} widgetMap={widgetMapWithDelete} widgetTypes={widgetTypes} onChange={setRows} onAdd={() => setIsModalOpen(true)} />
 
       <AddWidgetModal
         isOpen={isModalOpen}

@@ -56,6 +56,10 @@
   pointer-events: none;
 }
 
+.graph-stub__line-svg path {
+  stroke: rgba(176, 189, 214, 0.2);
+}
+
 /* ── Таблица метрик ── */
 .graph-stub__table {
   margin-top: 16px;

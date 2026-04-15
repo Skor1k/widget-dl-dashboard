@@ -1,3 +1,7 @@
 .add-widget-modal {
   width: 480px;
 }
+
+.add-widget-modal .dc-Modal__inner_paddingCorrection_top {
+  width: 100%;
+}

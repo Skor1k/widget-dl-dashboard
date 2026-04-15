@@ -16,8 +16,8 @@ interface AddWidgetModalProps {
 }
 
 const CHART_TYPE_OPTIONS = [
-  { value: 'line', content: 'Линейный график' },
-  { value: 'metric', content: 'Метрика (число)' },
+  { value: 'line', content: 'График' },
+  { value: 'metric', content: 'Показатель' },
 ];
 
 export const AddWidgetModal: React.FC<AddWidgetModalProps> = ({ isOpen, onClose, onAdd }) => {
@@ -55,7 +55,7 @@ export const AddWidgetModal: React.FC<AddWidgetModalProps> = ({ isOpen, onClose,
         </>
       }
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 16, padding: '8px 0' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16, padding: '8px 0', width: '100%' }}>
         <div style={{ fontSize: 20, fontWeight: 500, fontFamily: "'YS Text', sans-serif" }}>
           Добавить виджет
         </div>
