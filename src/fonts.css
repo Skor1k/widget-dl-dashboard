@@ -1,0 +1,127 @@
+/* YS Text — CDN: https://yastatic.net/s3/home/fonts/ys/4/ */
+
+/* Regular (400) */
+@font-face {
+  font-family: 'YS Text';
+  src: url('https://yastatic.net/s3/home/fonts/ys/4/text-regular.woff2') format('woff2'),
+       url('https://yastatic.net/s3/home/fonts/ys/4/text-regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'YS Text';
+  src: url('https://yastatic.net/s3/home/fonts/ys/4/text-regular-italic.woff2') format('woff2'),
+       url('https://yastatic.net/s3/home/fonts/ys/4/text-regular-italic.woff') format('woff');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Thin (100) */
+@font-face {
+  font-family: 'YS Text';
+  src: url('https://yastatic.net/s3/home/fonts/ys/4/text-thin.woff2') format('woff2'),
+       url('https://yastatic.net/s3/home/fonts/ys/4/text-thin.woff') format('woff');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'YS Text';
+  src: url('https://yastatic.net/s3/home/fonts/ys/4/text-thin-italic.woff2') format('woff2'),
+       url('https://yastatic.net/s3/home/fonts/ys/4/text-thin-italic.woff') format('woff');
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Light (300) */
+@font-face {
+  font-family: 'YS Text';
+  src: url('https://yastatic.net/s3/home/fonts/ys/4/text-light.woff2') format('woff2'),
+       url('https://yastatic.net/s3/home/fonts/ys/4/text-light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'YS Text';
+  src: url('https://yastatic.net/s3/home/fonts/ys/4/text-light-italic.woff2') format('woff2'),
+       url('https://yastatic.net/s3/home/fonts/ys/4/text-light-italic.woff') format('woff');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Medium (500) */
+@font-face {
+  font-family: 'YS Text';
+  src: url('https://yastatic.net/s3/home/fonts/ys/4/text-medium.woff2') format('woff2'),
+       url('https://yastatic.net/s3/home/fonts/ys/4/text-medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'YS Text';
+  src: url('https://yastatic.net/s3/home/fonts/ys/4/text-medium-italic.woff2') format('woff2'),
+       url('https://yastatic.net/s3/home/fonts/ys/4/text-medium-italic.woff') format('woff');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Bold (700) */
+@font-face {
+  font-family: 'YS Text';
+  src: url('https://yastatic.net/s3/home/fonts/ys/4/text-bold.woff2') format('woff2'),
+       url('https://yastatic.net/s3/home/fonts/ys/4/text-bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'YS Text';
+  src: url('https://yastatic.net/s3/home/fonts/ys/4/text-bold-italic.woff2') format('woff2'),
+       url('https://yastatic.net/s3/home/fonts/ys/4/text-bold-italic.woff') format('woff');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Heavy (800) */
+@font-face {
+  font-family: 'YS Text';
+  src: url('https://yastatic.net/s3/home/fonts/ys/4/text-heavy.woff2') format('woff2'),
+       url('https://yastatic.net/s3/home/fonts/ys/4/text-heavy.woff') format('woff');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'YS Text';
+  src: url('https://yastatic.net/s3/home/fonts/ys/4/text-heavy-italic.woff2') format('woff2'),
+       url('https://yastatic.net/s3/home/fonts/ys/4/text-heavy-italic.woff') format('woff');
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Black (900) */
+@font-face {
+  font-family: 'YS Text';
+  src: url('https://yastatic.net/s3/home/fonts/ys/4/text-black.woff2') format('woff2'),
+       url('https://yastatic.net/s3/home/fonts/ys/4/text-black.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'YS Text';
+  src: url('https://yastatic.net/s3/home/fonts/ys/4/text-black-italic.woff2') format('woff2'),
+       url('https://yastatic.net/s3/home/fonts/ys/4/text-black-italic.woff') format('woff');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}

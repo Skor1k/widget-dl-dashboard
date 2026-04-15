@@ -1,0 +1,73 @@
+.widget {
+  position: relative;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 28px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+/* ── Drag handle ── */
+.widget__drag-handle {
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 20px;
+  padding: 0 4px;
+  color: rgba(26, 43, 77, 0.4);
+  cursor: grab;
+  touch-action: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+  border-radius: 4px;
+  z-index: 1;
+}
+
+.widget:hover .widget__drag-handle {
+  opacity: 1;
+}
+
+.widget__drag-handle:active {
+  cursor: grabbing;
+}
+
+/* ── Header ── */
+.widget__header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+}
+
+.widget__title {
+  flex: 1;
+  font-family: 'YS Text', sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 28px;
+  color: #1e242e;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.widget__menu-btn {
+  flex-shrink: 0;
+}
+
+.widget__chart {
+  flex: 1;
+  min-height: 0;
+}
+
+.widget__footer {
+  font-family: 'YS Text', sans-serif;
+  font-size: 13px;
+  color: rgba(26, 43, 77, 0.73);
+}

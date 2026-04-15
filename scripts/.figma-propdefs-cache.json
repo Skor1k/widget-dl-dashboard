@@ -1,0 +1,92 @@
+{
+  "updatedAt": "2026-03-27T14:21:11.805Z",
+  "defs": {
+    "Button": {
+      "boolProps": {
+        "iconl": "IconL#24640:0",
+        "iconr": "IconR#24640:513",
+        "caption": "Caption#63373:273"
+      },
+      "instanceSwapProps": {
+        "icon(12)": "Icon (12)#41202:0",
+        "iconright(12)": "IconRight (12)#41202:515",
+        "iconleft(12)": "IconLeft (12)#41202:2060",
+        "iconleft(24)": "IconLeft (24)#69606:3124",
+        "iconright(24)": "IconRight (24)#69606:4133",
+        "icon(24)": "Icon (24)#69606:5142",
+        "iconleft(16)": "IconLeft (16)#69606:6151",
+        "iconright(16)": "IconRight (16)#69606:7160",
+        "icon(16)": "Icon (16)#69606:8169"
+      },
+      "textPropKey": "TextContent#72462:15"
+    },
+    "MultiButton": {
+      "boolProps": {
+        "extraoptions": "ExtraOptions#23073:0",
+        "item2": "Item 2#23406:0",
+        "item1": "Item 1#23406:25",
+        "item3": "Item 3#23406:50",
+        "item4": "Item 4#23406:75",
+        "item5": "Item 5#23406:100",
+        "item6": "Item 6#23406:125",
+        "item7": "Item 7#23406:150"
+      }
+    },
+    "FormField": {
+      "boolProps": {
+        "addonright": "AddonRight#57768:0",
+        "header": "Header#63762:25",
+        "footer": "Footer#63762:37"
+      },
+      "instanceSwapProps": {
+        "element": "Element#58548:0",
+        "content": "Content#59171:0"
+      }
+    },
+    "Select": {
+      "instanceSwapProps": {
+        "labelcontent": "LabelContent#15880:6",
+        "iconleftcontent(24)": "IconLeftContent (24)#69629:0",
+        "iconleftcontent(16)": "IconLeftContent (16)#69629:1154"
+      },
+      "boolProps": {
+        "iconleft": "IconLeft#55494:0",
+        "label": "Label#55494:8",
+        "caption": "Caption#58384:0",
+        "help": "Help#71493:0"
+      }
+    },
+    "TextInput": {
+      "instanceSwapProps": {
+        "labeltype": "LabelType#15897:97",
+        "innerlabeltype-24": "InnerLabelType-24#15897:434",
+        "innerlabeltype-20": "InnerLabelType-20#15897:771"
+      },
+      "boolProps": {
+        "iconleft": "IconLeft#55494:0",
+        "counter": "Counter#55494:4",
+        "innerlabel": "InnerLabel#55494:6",
+        "label": "Label#55494:8",
+        "close": "Close#55494:10",
+        "addonright": "AddonRight#61609:0",
+        "istextarea": "IsTextarea#64101:0"
+      }
+    },
+    "Radiobox": {
+      "boolProps": {
+        "caption": "Caption#63427:46"
+      }
+    },
+    "Header": {
+      "instanceSwapProps": {
+        "labeltype": "LabelType#15866:0"
+      },
+      "textPropKey": "Content#40980:0",
+      "boolProps": {
+        "label": "Label#50675:1409",
+        "addonright": "AddonRight#60916:104",
+        "caption": "Caption#60916:156"
+      }
+    }
+  }
+}

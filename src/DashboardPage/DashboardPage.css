@@ -1,0 +1,47 @@
+.dashboard-page {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0 32px 24px;
+  min-height: 100vh;
+  background: #f0f2f5;
+}
+
+/* ── Белая карточка: PageHead ── */
+.dashboard-page__header-card {
+  background: #ffffff;
+  border-radius: 14px 14px 0 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Sentinel — нулевой элемент для IntersectionObserver ── */
+.dashboard-page__filters-sentinel {
+  height: 0;
+}
+
+/* ── Залипающая строка фильтров ── */
+.dashboard-page__filters {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px 36px;
+  background: #ffffff;
+  border-radius: 0 0 14px 14px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  margin-bottom: 24px;
+}
+
+.dashboard-page__filters--stuck {
+  border-radius: 0 0 14px 14px;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.10);
+}
+
+.dashboard-page__filters-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

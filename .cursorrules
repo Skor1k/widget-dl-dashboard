@@ -1,0 +1,179 @@
+# Project Cursor Rules
+
+> **Настройка проекта / первый запуск / новая задача → читай [`AGENTS.md`](AGENTS.md)**
+> Там полный онбординг, Section 0 — пошаговый setup, Section 0.5 — ведение тикетов.
+
+## Язык
+Отвечай только на русском языке.
+
+## Правила разработки
+
+### ✅ Обязательно
+1. Использовать ТОЛЬКО компоненты из `@direct-frontend/components`
+2. При отсутствии нужного компонента — спросить у пользователя, не писать хардкод
+3. Читать `CLAUDE.md` для полного контекста
+
+### ❌ Запрещено
+1. Нативные HTML-теги (`<div>`, `<h2>`, `<p>`, `<span>` и т.д.) там, где есть аналог в `@direct-frontend/components`
+2. Собственные стили вместо готовых компонентов
+3. Спредить весь `controlProps` в FormField render-prop (это ломает react-aria)
+
+## Стек
+
+- **React 18.2** + TypeScript 5.2
+- **Webpack 5** (babel-loader, НЕ ts-loader — нужен для @adv-frontend/l10n)
+- **@direct-frontend/components** 0.16.1 (дизайн-система, BEM CSS, ESM bundle)
+- **@adv-frontend/l10n** 1.4.1 (i18n, `setI18nLang('ru')` в index.tsx)
+- **YS Text** шрифты (woff/woff2, weights 100–900 + italic, установлены локально в src/fonts/)
+
+## Ключевые паттерны
+
+### FormField render-prop
+```tsx
+<FormField label="Название">
+  {({ id, isDisabled, validationState, 'aria-labelledby': ariaLabelledby, 'aria-describedby': ariaDescribedby, 'aria-errormessage': ariaErrorMessage }) => (
+    <Select id={id} isDisabled={isDisabled} validationState={validationState} color="contour" size="m">
+      <Item key="1">Вариант 1</Item>
+    </Select>
+  )}
+</FormField>
+```
+❌ **НЕ ДЕЛАТЬ**: спредить весь `controlProps` — это ломает react-aria.
+
+### Иконки — импорт через subpath
+```tsx
+import { IconCreate } from '@direct-frontend/components/icons/colorless/Actions/Create';
+
+<Button color="accent" size="m" iconLeft={<IconCreate size="16" />}>Создать</Button>
+```
+⚠️ `IconSize` — строка: `size="16"`, **не** `size={16}`.
+
+### Select — обязателен color
+```tsx
+<Select color="contour" size="m">  {/* color обязателен! */}
+  <Item key="1">Вариант 1</Item>
+</Select>
+```
+
+### Button — доступные цвета
+`'accent' | 'normal' | 'contrast' | 'contour' | 'text' | 'text-supplementary' | 'link'`
+
+### FileUploader
+```tsx
+<FileUploader isCompact multiple onChange={(e) => setFiles([...files, ...Array.from(e.target.files || [])])}>
+  Перетащите файлы или <Link href="#">выберите</Link>
+</FileUploader>
+```
+
+### InfoItem с превью файла
+```tsx
+<InfoItem hasImage addonLeft={<FileThumb file={f} className="" />} addonRight={<ClickableIcon icon={<IconClose size="16" />} onClick={() => removeFile(i)} />}>
+  {f.name}
+</InfoItem>
+```
+⚠️ `addonLeft` ожидает компонент с пропом `className`.
+
+## webpack.config.js — важные патчи
+
+### 1. IgnorePlugin — баг AiAnimatedIcon
+Пакет v0.16.1 импортирует несуществующие анимированные PNG:
+```js
+new webpack.IgnorePlugin({ resourceRegExp: /\/icons\/animated\// })
+```
+
+### 2. resolve.alias — баг SummaryCard
+SummaryCard использует неверный путь `../../../src/lib/...` вместо `../../../lib/...`:
+```js
+alias: {
+  [path.resolve(__dirname, 'node_modules/@direct-frontend/components/desktop/src')]:
+    path.resolve(__dirname, 'node_modules/@direct-frontend/components/desktop/esm'),
+}
+```
+
+### 3. Asset handling
+```js
+{ test: /\.(png|jpg|jpeg|gif|svg)$/i, type: 'asset/resource' }
+```
+
+## Figma Plugin "Page to Figma"
+
+Генерирует дизайн-макеты из JSON-описаний.
+
+**Сборка**: `npm run build:plugin`
+
+**Использование**:
+1. Figma → Plugins → Development → Import plugin from manifest...
+2. Выбрать `figma-plugin/manifest.json`
+3. Вставить JSON в вкладку "JSON"
+4. Нажать "Создать в Figma"
+
+📖 **Полная инструкция**: [`figma-plugin/PLUGIN_GUIDE.md`](./figma-plugin/PLUGIN_GUIDE.md)
+
+### Генерация JSON из TSX
+```bash
+npm run generate:figma -- src/FormPage.tsx
+npm run generate:figma -- src/FormPage.tsx --refresh  # Обновить кэш компонентов
+```
+
+Требует `.env` с переменными (см. README.md).
+
+## Figma — компоненты дизайн-системы
+
+**Библиотека**: `d7j2JJCU0EBCujpo4S1r66`
+
+| Компонент | componentKey |
+|-----------|-------------|
+| Header_V4 | `289b1c524876349082948a175c0499df92b7677b` |
+| Button_V5 | `a765d5679f10f13e5e369e4df617396acca6d397` |
+| FormField_V6 | `8266b3e6ba42e072128de1bd5e9e1bb14c1ac88a` |
+| Select | `4984064d1faed9af4cdf733869ce710f9dfd94e6` |
+| TextInput | `b272d94a2f29da0d7573f24254a6be4df9eccd85` |
+| Radiobox_V3 | `46079d6cdeffbd4d319f4f83f9ed6adb7c8b3868` |
+| MultiButton_V5 | `73577ebc928c4dcdea49e0e33250ce5092a8987e` |
+
+### Цветовые переменные
+- `Color/Basic/Background/Secondary` (фон #f0f2f5): `78b0d61d5678e1d54277939af5b443b5aba20999`
+- `Color/Basic/Background/Primary` (карточка #ffffff): `9b5df4720f0c7cc55ed7ec5baf34f78a84de41e9`
+
+## Известные проблемы и решения
+
+| Проблема | Решение |
+|----------|---------|
+| `Can't resolve 'babel-loader'` | `npm install --save-dev babel-loader` |
+| Анимированные PNG ошибка | IgnorePlugin уже в webpack.config.js |
+| SummaryCard не найден | resolve.alias уже в webpack.config.js |
+| YS Text в Figma Plugin API | Скопировать `.ttf` в `/Library/Fonts/`, перезапустить Figma |
+| FormField ломается с controlProps | Деструктурировать только нужные пропсы (см. паттерны выше) |
+
+## Структура файлов
+
+```
+src/
+  App.tsx, FormPage.tsx — основной код
+  fonts/ — YS Text woff/woff2
+  fonts.css — @font-face
+
+figma-plugin/
+  src/ — plugin code + component-map.ts
+  dist/ — собранный плагин
+  PLUGIN_GUIDE.md — инструкция
+
+scripts/
+  generate-page.ts — TSX → JSON парсер
+
+webpack.config.js, babel.config.js, tsconfig.json — конфиги
+```
+
+## Npm Scripts
+
+```bash
+npm start                              # Dev-сервер
+npm run build                          # Production-сборка
+npm run build:plugin                   # Собрать Figma-плагин
+npm run generate:figma -- src/FormPage.tsx     # Генерировать JSON
+npm run test:scripts                   # Тесты парсера
+```
+
+---
+
+**Полная инструкция для Claude Code**: [`CLAUDE.md`](./CLAUDE.md)

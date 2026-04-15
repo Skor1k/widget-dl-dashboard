@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx webpack:*)",
+      "mcp__figma__get_design_context",
+      "mcp__ide__getDiagnostics"
+    ]
+  },
+  "enabledPlugins": {
+    "superpowers@claude-plugins-official": true
+  }
+}

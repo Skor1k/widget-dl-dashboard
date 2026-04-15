@@ -1,0 +1,23 @@
+.my-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: #f0f2f5;
+    padding: 40px 16px;
+    box-sizing: border-box;
+}
+
+.my-page__card {
+    width: 702px;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.my-page__actions {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+}

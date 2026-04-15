@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "paths": {
+      "@direct-frontend/components/icons/*": [
+        "./node_modules/@direct-frontend/components/types/src/icons/*"
+      ]
+    }
+  },
+  "include": ["src"]
+}
