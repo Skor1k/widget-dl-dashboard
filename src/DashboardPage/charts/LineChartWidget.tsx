@@ -70,7 +70,7 @@ export const LineChartWidget: React.FC<LineChartWidgetProps> = ({
 };
 
 // Компактный спаркл для маленьких виджетов
-export const SparklineChart: React.FC<{ color?: string }> = ({ color = '#8e7dbe' }) => {
+export const SparklineChart: React.FC = () => {
   const pts = [10, 8, 12, 7, 14, 10, 16, 12, 18, 14];
   const vbW = 120;
   const vbH = 32;
@@ -94,19 +94,19 @@ export const SparklineChart: React.FC<{ color?: string }> = ({ color = '#8e7dbe'
       style={{ display: 'block' }}
     >
       <defs>
-        <linearGradient id={`spark-${color.replace('#', '')}`} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor={color} stopOpacity="0.25" />
-          <stop offset="100%" stopColor={color} stopOpacity="0" />
+        <linearGradient id="spark-violet-grad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="var(--dc-chart-violet-200)" stopOpacity="0.2" />
+          <stop offset="100%" stopColor="var(--dc-chart-violet-200)" stopOpacity="0" />
         </linearGradient>
       </defs>
       <polygon
         points={`0,${vbH} ${points} ${vbW},${vbH}`}
-        fill={`url(#spark-${color.replace('#', '')})`}
+        fill="url(#spark-violet-grad)"
       />
       <polyline
         points={points}
         fill="none"
-        stroke={color}
+        stroke="var(--dc-chart-violet-200)"
         strokeWidth={1.5}
         strokeLinecap="round"
         strokeLinejoin="round"

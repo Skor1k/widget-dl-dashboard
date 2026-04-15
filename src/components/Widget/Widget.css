@@ -8,6 +8,8 @@
   gap: 16px;
   min-width: 0;
   box-sizing: border-box;
+  height: 100%;
+  container-type: inline-size;
 }
 
 /* ── Drag handle ── */
@@ -59,12 +61,52 @@
 }
 
 .widget__chart {
-  height: 228px;
   flex-shrink: 0;
 }
 
-.widget--mini .widget__chart {
-  height: auto;
+/* ── MetricWidget adaptive layout ── */
+.metric-widget {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+/* Переход в вертикаль когда виджет уже 340px */
+@container (max-width: 340px) {
+  .metric-widget {
+    flex-direction: column;
+  }
+}
+
+.metric-widget__values {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+  font-family: 'YS Text', sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 32px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.metric-widget__value {
+  color: #1e242e;
+}
+
+.metric-widget__delta--positive {
+  color: var(--dc-color-text-green-main);
+}
+
+.metric-widget__delta--negative {
+  color: var(--dc-color-text-red-main);
+}
+
+.metric-widget__sparkline {
+  flex: 1 0 80px;
+  height: 32px;
+  min-width: 0;
 }
 
 /* ── New widget highlight ── */

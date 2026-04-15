@@ -5,7 +5,7 @@ import { IconGridAdd } from '@direct-frontend/components/icons/colorless/Layout/
 import { Widget } from '../components/Widget/Widget';
 import { WidgetCanvas, WidgetRow } from '../components/WidgetCanvas/WidgetCanvas';
 import { AddWidgetModal, NewWidgetConfig } from '../components/AddWidgetModal/AddWidgetModal';
-import { LineChartWidget } from './charts/LineChartWidget';
+import { GraphStub } from './charts/GraphStub';
 import { MetricWidget } from './charts/MetricWidget';
 import './DashboardPage.css';
 
@@ -29,15 +29,15 @@ const INTERVAL_OPTIONS = [
 let widgetCounter = 9;
 
 const INITIAL_WIDGET_MAP: Record<string, React.ReactNode> = {
-  w1: <Widget id="w1" title="Показы" variant="regular" chart={<LineChartWidget color="#5c6bc0" height={160} />} />,
-  w2: <Widget id="w2" title="Клики" variant="regular" chart={<LineChartWidget color="#26a69a" height={160} />} />,
-  w3: <Widget id="w3" title="CTR" variant="regular" chart={<LineChartWidget color="#ef5350" height={160} />} />,
+  w1: <Widget id="w1" title="Показы" variant="regular" chart={<GraphStub />} />,
+  w2: <Widget id="w2" title="Клики" variant="regular" chart={<GraphStub />} />,
+  w3: <Widget id="w3" title="CTR" variant="regular" chart={<GraphStub />} />,
   w4: (
     <Widget
       id="w4"
       title="Расход"
       variant="mini"
-      chart={<MetricWidget value="+125,5 %" delta="−23%" deltaPositive={false} sparklineColor="#8e7dbe" />}
+      chart={<MetricWidget value="+125,5 %" delta="−23%" deltaPositive={false} />}
     />
   ),
   w5: (
@@ -45,20 +45,20 @@ const INITIAL_WIDGET_MAP: Record<string, React.ReactNode> = {
       id="w5"
       title="CR"
       variant="mini"
-      chart={<MetricWidget value="3,4 %" delta="+0,8%" deltaPositive sparklineColor="#26a69a" />}
+      chart={<MetricWidget value="3,4 %" delta="+0,8%" deltaPositive />}
     />
   ),
-  w6: <Widget id="w6" title="Конверсии" variant="regular" chart={<LineChartWidget color="#ff7043" height={200} />} />,
-  w7: <Widget id="w7" title="CPC" variant="regular" chart={<LineChartWidget color="#ab47bc" height={160} />} />,
+  w6: <Widget id="w6" title="Конверсии" variant="regular" chart={<GraphStub />} />,
+  w7: <Widget id="w7" title="CPC" variant="regular" chart={<GraphStub />} />,
   w8: (
     <Widget
       id="w8"
       title="CPA"
       variant="mini"
-      chart={<MetricWidget value="180 ₽" delta="+12%" deltaPositive sparklineColor="#5c6bc0" />}
+      chart={<MetricWidget value="180 ₽" delta="+12%" deltaPositive />}
     />
   ),
-  w9: <Widget id="w9" title="Охват" variant="regular" chart={<LineChartWidget color="#26c6da" height={160} />} />,
+  w9: <Widget id="w9" title="Охват" variant="regular" chart={<GraphStub />} />,
 };
 
 const WIDGET_TYPES: Record<string, 'regular' | 'mini'> = {
@@ -145,9 +145,9 @@ export const DashboardPage: React.FC = () => {
         variant={wType}
         chart={
           config.chartType === 'line' ? (
-            <LineChartWidget color={`hsl(${(widgetCounter * 47) % 360}, 60%, 50%)`} height={160} />
+            <GraphStub />
           ) : (
-            <MetricWidget value="0" delta="+0%" deltaPositive sparklineColor={`hsl(${(widgetCounter * 47) % 360}, 60%, 50%)`} />
+            <MetricWidget value="0" delta="+0%" deltaPositive />
           )
         }
       />

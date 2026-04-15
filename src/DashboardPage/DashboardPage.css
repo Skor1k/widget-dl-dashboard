@@ -26,18 +26,18 @@
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  padding: 12px 36px;
+  padding: 0 36px 28px;
   background: #ffffff;
   border-radius: 0 0 14px 14px;
   position: sticky;
   top: 0;
   z-index: 100;
-  margin-bottom: 24px;
 }
 
 .dashboard-page__filters--stuck {
   border-radius: 0 0 14px 14px;
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.10);
+  padding-top: 28px;
 }
 
 .dashboard-page__filters-left {

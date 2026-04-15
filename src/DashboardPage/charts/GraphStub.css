@@ -1,0 +1,84 @@
+.graph-stub {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* ── График ── */
+.graph-stub__graph {
+  height: 228px;
+  display: flex;
+  align-items: stretch;
+  flex-shrink: 0;
+}
+
+.graph-stub__y-axis {
+  width: 36px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2px 0 15px;
+}
+
+.graph-stub__y-pill {
+  width: 24px;
+  height: 10px;
+  border-radius: 20px;
+  background: rgba(176, 189, 214, 0.2);
+}
+
+.graph-stub__chart-area {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+}
+
+.graph-stub__grid-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(145, 158, 187, 0.175);
+  transform: translateY(-50%);
+}
+
+.graph-stub__grid-line:nth-child(1) { top: 7px; }
+.graph-stub__grid-line:nth-child(2) { top: 107.5px; }
+.graph-stub__grid-line:nth-child(3) { top: 208px; }
+
+.graph-stub__line-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
+
+/* ── Таблица метрик ── */
+.graph-stub__table {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.graph-stub__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 0;
+}
+
+.graph-stub__pill {
+  height: 14px;
+  border-radius: 8px;
+  background: rgba(176, 189, 214, 0.2);
+  flex-shrink: 0;
+}
+
+.graph-stub__pill--value {
+  width: 64px;
+}
