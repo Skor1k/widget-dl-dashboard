@@ -10,6 +10,10 @@
   gap: 16px;
 }
 
+.widget-canvas__row--mini {
+  align-items: flex-start;
+}
+
 /* ── Widget wrapper — position:relative for absolute drop halves ── */
 .widget-canvas__widget-wrapper {
   flex: 1 1 0;

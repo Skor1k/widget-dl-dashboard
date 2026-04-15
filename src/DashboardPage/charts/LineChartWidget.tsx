@@ -72,21 +72,27 @@ export const LineChartWidget: React.FC<LineChartWidgetProps> = ({
 // Компактный спаркл для маленьких виджетов
 export const SparklineChart: React.FC<{ color?: string }> = ({ color = '#8e7dbe' }) => {
   const pts = [10, 8, 12, 7, 14, 10, 16, 12, 18, 14];
-  const w = 120;
-  const h = 32;
+  const vbW = 120;
+  const vbH = 32;
   const max = Math.max(...pts);
   const min = Math.min(...pts);
   const range = max - min || 1;
   const points = pts
     .map((v, i) => {
-      const x = (i / (pts.length - 1)) * w;
-      const y = h - ((v - min) / range) * (h - 6) - 3;
+      const x = (i / (pts.length - 1)) * vbW;
+      const y = vbH - ((v - min) / range) * (vbH - 6) - 3;
       return `${x},${y}`;
     })
     .join(' ');
 
   return (
-    <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} style={{ display: 'block' }}>
+    <svg
+      width="100%"
+      height="100%"
+      viewBox={`0 0 ${vbW} ${vbH}`}
+      preserveAspectRatio="none"
+      style={{ display: 'block' }}
+    >
       <defs>
         <linearGradient id={`spark-${color.replace('#', '')}`} x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor={color} stopOpacity="0.25" />
@@ -94,7 +100,7 @@ export const SparklineChart: React.FC<{ color?: string }> = ({ color = '#8e7dbe'
         </linearGradient>
       </defs>
       <polygon
-        points={`0,${h} ${points} ${w},${h}`}
+        points={`0,${vbH} ${points} ${vbW},${vbH}`}
         fill={`url(#spark-${color.replace('#', '')})`}
       />
       <polyline

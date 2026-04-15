@@ -124,7 +124,7 @@ function RowComponent({
     widgetsAfterRemoval.length < maxPerRow;
 
   return (
-    <div className="widget-canvas__row">
+    <div className={`widget-canvas__row${row.type === 'mini' ? ' widget-canvas__row--mini' : ''}`}>
       {row.widgetIds.map((wid, i) => (
         <div key={wid} className="widget-canvas__widget-wrapper">
           {/* Left half → insert before this widget */}

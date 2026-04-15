@@ -7,6 +7,7 @@
   flex-direction: column;
   gap: 16px;
   min-width: 0;
+  box-sizing: border-box;
 }
 
 /* ── Drag handle ── */
@@ -47,11 +48,7 @@
 
 .widget__title {
   flex: 1;
-  font-family: 'YS Text', sans-serif;
-  font-size: 20px;
-  font-weight: 500;
-  line-height: 28px;
-  color: #1e242e;
+  min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -62,8 +59,23 @@
 }
 
 .widget__chart {
-  flex: 1;
-  min-height: 0;
+  height: 228px;
+  flex-shrink: 0;
+}
+
+.widget--mini .widget__chart {
+  height: auto;
+}
+
+/* ── New widget highlight ── */
+@keyframes widget-highlight {
+  0%   { box-shadow: 0 0 0 2px #7a45e5; }
+  75%  { box-shadow: 0 0 0 2px #7a45e5; }
+  100% { box-shadow: 0 0 0 2px transparent; }
+}
+
+.widget--new {
+  animation: widget-highlight 2s ease-out forwards;
 }
 
 .widget__footer {

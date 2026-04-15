@@ -22,12 +22,17 @@ const CHART_TYPE_OPTIONS = [
 
 export const AddWidgetModal: React.FC<AddWidgetModalProps> = ({ isOpen, onClose, onAdd }) => {
   const [title, setTitle] = useState('');
+  const [titleError, setTitleError] = useState(false);
   const [chartType, setChartType] = useState<ChartType>('line');
 
   const handleAdd = () => {
-    if (!title.trim()) return;
+    if (!title.trim()) {
+      setTitleError(true);
+      return;
+    }
     onAdd({ title: title.trim(), chartType });
     setTitle('');
+    setTitleError(false);
     setChartType('line');
     onClose();
   };
@@ -55,7 +60,11 @@ export const AddWidgetModal: React.FC<AddWidgetModalProps> = ({ isOpen, onClose,
           Добавить виджет
         </div>
 
-        <FormField label="Название виджета">
+        <FormField
+          label="Название виджета"
+          validationState={titleError ? 'invalid' : undefined}
+          errorMessage={titleError ? 'Введите название виджета' : undefined}
+        >
           {({
             id,
             isDisabled,
@@ -73,25 +82,26 @@ export const AddWidgetModal: React.FC<AddWidgetModalProps> = ({ isOpen, onClose,
               aria-errormessage={ariaErrorMessage}
               size="m"
               value={title}
-              onChange={(v: string) => setTitle(v)}
+              onChange={(v: string) => { setTitle(v); if (v.trim()) setTitleError(false); }}
               placeholder="Введите название"
             />
           )}
         </FormField>
 
-        <FormField label="Тип графика">
-          {() => (
-            <MultiButton
-              name="chartType"
-              size="m"
-              color="gray"
-              width="max"
-              options={CHART_TYPE_OPTIONS}
-              value={chartType}
-              onChange={(v) => setChartType(v as ChartType)}
-            />
-          )}
-        </FormField>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+          <span style={{ fontSize: 13, color: 'rgba(26,43,77,0.73)', fontFamily: "'YS Text', sans-serif" }}>
+            Тип графика
+          </span>
+          <MultiButton
+            name="chartType"
+            size="m"
+            color="gray"
+            width="max"
+            options={CHART_TYPE_OPTIONS}
+            value={chartType}
+            onChange={(v) => setChartType(v as ChartType)}
+          />
+        </div>
       </div>
     </Modal>
   );

@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { ClickableIcon, MenuTrigger, List, ListItem } from '@direct-frontend/components';
+import { ClickableIcon, MenuTrigger, List, ListItem, Header } from '@direct-frontend/components';
 import { IconMenu } from '@direct-frontend/components/icons/colorless/Navigation/Menu';
 import { IconVerticalMenu } from '@direct-frontend/components/icons/colorless/Navigation/VerticalMenu';
 import './Widget.css';
@@ -7,9 +7,11 @@ import './Widget.css';
 export interface WidgetProps {
   id: string;
   title: string;
+  variant?: 'regular' | 'mini';
   chart?: ReactNode;
   footer?: ReactNode;
   onDelete?: (id: string) => void;
+  isNew?: boolean;
   dragHandleListeners?: Record<string, unknown>;
   dragHandleAttributes?: Record<string, unknown>;
 }
@@ -17,14 +19,16 @@ export interface WidgetProps {
 export const Widget: React.FC<WidgetProps> = ({
   id,
   title,
+  variant = 'regular',
   chart,
   footer,
   onDelete,
+  isNew,
   dragHandleListeners,
   dragHandleAttributes,
 }) => {
   return (
-    <div className="widget">
+    <div id={`widget-${id}`} className={`widget${variant === 'mini' ? ' widget--mini' : ''}${isNew ? ' widget--new' : ''}`}>
       {/* Drag handle — centered at top, visible on hover */}
       <div
         className="widget__drag-handle"
@@ -35,7 +39,7 @@ export const Widget: React.FC<WidgetProps> = ({
       </div>
 
       <div className="widget__header">
-        <span className="widget__title">{title}</span>
+        <Header level={variant === 'mini' ? 'h4' : 'h3'} className="widget__title">{title}</Header>
         {onDelete && (
           <MenuTrigger
             placement="bottom-end"

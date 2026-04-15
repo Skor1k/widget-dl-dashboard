@@ -15,33 +15,31 @@ export const MetricWidget: React.FC<MetricWidgetProps> = ({
   sparklineColor,
 }) => {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-      <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
-        <span
-          style={{
-            fontFamily: "'YS Text', sans-serif",
-            fontSize: 24,
-            fontWeight: 500,
-            color: '#1e242e',
-            lineHeight: '32px',
-          }}
-        >
-          {value}
-        </span>
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, alignItems: 'flex-start' }}>
+      {/* Значение + дельта */}
+      <div
+        style={{
+          display: 'flex',
+          gap: 10,
+          alignItems: 'flex-end',
+          fontFamily: "'YS Text', sans-serif",
+          fontSize: 24,
+          fontWeight: 500,
+          lineHeight: '32px',
+          whiteSpace: 'nowrap',
+        }}
+      >
+        <span style={{ color: '#1e242e' }}>{value}</span>
         {delta && (
-          <span
-            style={{
-              fontFamily: "'YS Text', sans-serif",
-              fontSize: 13,
-              fontWeight: 500,
-              color: deltaPositive ? '#2e7d32' : '#c62828',
-            }}
-          >
-            {deltaPositive ? '+' : ''}{delta}
-          </span>
+          <span style={{ color: deltaPositive ? '#2e7d32' : '#DD0000' }}>{delta}</span>
         )}
       </div>
-      {sparklineColor && <SparklineChart color={sparklineColor} />}
+      {/* Спарклайн — занимает оставшееся место */}
+      {sparklineColor && (
+        <div style={{ flex: '1 0 80px', height: 32 }}>
+          <SparklineChart color={sparklineColor} />
+        </div>
+      )}
     </div>
   );
 };

@@ -29,13 +29,14 @@ const INTERVAL_OPTIONS = [
 let widgetCounter = 9;
 
 const INITIAL_WIDGET_MAP: Record<string, React.ReactNode> = {
-  w1: <Widget id="w1" title="Показы" chart={<LineChartWidget color="#5c6bc0" height={160} />} />,
-  w2: <Widget id="w2" title="Клики" chart={<LineChartWidget color="#26a69a" height={160} />} />,
-  w3: <Widget id="w3" title="CTR" chart={<LineChartWidget color="#ef5350" height={160} />} />,
+  w1: <Widget id="w1" title="Показы" variant="regular" chart={<LineChartWidget color="#5c6bc0" height={160} />} />,
+  w2: <Widget id="w2" title="Клики" variant="regular" chart={<LineChartWidget color="#26a69a" height={160} />} />,
+  w3: <Widget id="w3" title="CTR" variant="regular" chart={<LineChartWidget color="#ef5350" height={160} />} />,
   w4: (
     <Widget
       id="w4"
       title="Расход"
+      variant="mini"
       chart={<MetricWidget value="+125,5 %" delta="−23%" deltaPositive={false} sparklineColor="#8e7dbe" />}
     />
   ),
@@ -43,19 +44,21 @@ const INITIAL_WIDGET_MAP: Record<string, React.ReactNode> = {
     <Widget
       id="w5"
       title="CR"
+      variant="mini"
       chart={<MetricWidget value="3,4 %" delta="+0,8%" deltaPositive sparklineColor="#26a69a" />}
     />
   ),
-  w6: <Widget id="w6" title="Конверсии" chart={<LineChartWidget color="#ff7043" height={200} />} />,
-  w7: <Widget id="w7" title="CPC" chart={<LineChartWidget color="#ab47bc" height={160} />} />,
+  w6: <Widget id="w6" title="Конверсии" variant="regular" chart={<LineChartWidget color="#ff7043" height={200} />} />,
+  w7: <Widget id="w7" title="CPC" variant="regular" chart={<LineChartWidget color="#ab47bc" height={160} />} />,
   w8: (
     <Widget
       id="w8"
       title="CPA"
+      variant="mini"
       chart={<MetricWidget value="180 ₽" delta="+12%" deltaPositive sparklineColor="#5c6bc0" />}
     />
   ),
-  w9: <Widget id="w9" title="Охват" chart={<LineChartWidget color="#26c6da" height={160} />} />,
+  w9: <Widget id="w9" title="Охват" variant="regular" chart={<LineChartWidget color="#26c6da" height={160} />} />,
 };
 
 const WIDGET_TYPES: Record<string, 'regular' | 'mini'> = {
@@ -92,6 +95,7 @@ export const DashboardPage: React.FC = () => {
   const [rows, setRows] = useState<WidgetRow[]>(INITIAL_ROWS);
   const [widgetMap, setWidgetMap] = useState<Record<string, React.ReactNode>>(INITIAL_WIDGET_MAP);
   const [widgetTypes, setWidgetTypes] = useState<Record<string, 'regular' | 'mini'>>(WIDGET_TYPES);
+  const [newWidgetId, setNewWidgetId] = useState<string | null>(null);
 
   const handleDeleteWidget = useCallback((id: string) => {
     setWidgetMap(prev => {
@@ -116,19 +120,29 @@ export const DashboardPage: React.FC = () => {
       Object.fromEntries(
         Object.entries(widgetMap).map(([wid, node]) => [
           wid,
-          React.cloneElement(node as React.ReactElement, { onDelete: handleDeleteWidget }),
+          React.cloneElement(node as React.ReactElement, {
+            onDelete: handleDeleteWidget,
+            isNew: wid === newWidgetId,
+          }),
         ])
       ),
-    [widgetMap, handleDeleteWidget]
+    [widgetMap, handleDeleteWidget, newWidgetId]
   );
+
+  useEffect(() => {
+    if (!newWidgetId) return;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [newWidgetId]);
 
   const handleAddWidget = useCallback((config: NewWidgetConfig) => {
     widgetCounter += 1;
     const id = `w${widgetCounter}`;
+    const wType: 'regular' | 'mini' = config.chartType === 'metric' ? 'mini' : 'regular';
     const node = (
       <Widget
         id={id}
         title={config.title}
+        variant={wType}
         chart={
           config.chartType === 'line' ? (
             <LineChartWidget color={`hsl(${(widgetCounter * 47) % 360}, 60%, 50%)`} height={160} />
@@ -138,10 +152,11 @@ export const DashboardPage: React.FC = () => {
         }
       />
     );
-    const wType: 'regular' | 'mini' = config.chartType === 'metric' ? 'mini' : 'regular';
     setWidgetTypes(prev => ({ ...prev, [id]: wType }));
     setWidgetMap(prev => ({ ...prev, [id]: node }));
-    setRows(prev => [...prev, { id: `row-${Date.now()}`, widgetIds: [id], type: wType }]);
+    setRows(prev => [{ id: `row-${Date.now()}`, widgetIds: [id], type: wType }, ...prev]);
+    setNewWidgetId(id);
+    setTimeout(() => setNewWidgetId(null), 2100);
   }, []);
 
   return (
