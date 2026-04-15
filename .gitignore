@@ -27,3 +27,16 @@ Thumbs.db
 
 # TypeScript
 *.tsbuildinfo
+
+# AI / agent configs (local only)
+.claude/
+.cursor/
+.cursorrules
+Tickets/
+
+# Project docs (local only)
+AGENTS.md
+CLAUDE.md
+FIGMA_SYNC.md
+GEMINI.md
+README.md
